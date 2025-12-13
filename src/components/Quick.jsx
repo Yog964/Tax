@@ -40,8 +40,8 @@ const Quick = () => {
 
                 <label className='label1'>Total Annual Income</label>
                 <div className="input-wrapper1">
-                    <span>₹</span>
-                    <input type="number" placeholder="Enter income" value={eincome} onChange={(e) => setIncome(e.target.value)} />
+                    <span id='span1'>₹</span>
+                    <input type="number" placeholder="Enter income" value={eincome} onChange={(e) => setIncome(e.target.value)} id='input1'/>
                 </div>
 
                 <label className='label1'>Age Group</label>

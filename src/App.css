@@ -465,7 +465,7 @@ select {
 
     .Quickresultcard {
         width: 100%;
-        max-width: 320px;
+        max-width: 300px;
         padding: 20px 20px;
     }
 
@@ -476,7 +476,7 @@ select {
     .summary-row-large,
     .summary-row-small,
     .summary-row-final {
-        padding: 15px;
+        padding: 13px;
         font-size: 15px;
     }
 
@@ -522,7 +522,7 @@ select {
   background: linear-gradient(180deg, #374151, #1f2937);
   border-radius: 18px;
   padding: 30px;
-  color: #eaeaee;
+  color: #ffffff;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
 }
 
@@ -558,13 +558,13 @@ select {
   margin-bottom: 22px;
 }
 
-.input-wrapper1 span {
+#span1 {
   font-size: 18px;
   margin-right: 8px;
   opacity: 0.9;
 }
 
-.input-wrapper1 input {
+#input1 {
   flex: 1;
   background: transparent;
   border: none;
