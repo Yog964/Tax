@@ -1,3 +1,511 @@
+/* --- DetailedResult.css --- */
+
+/* --- General Container Styling --- */
+.DetailedResult-Page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Start from the top */
+    padding: 20px;
+    background-color: #f4f6f8; /* Light background for the whole page */
+    min-height: 100vh;
+}
+
+.DetailedResultcard { /* Class name updated */
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 650px; /* Max width for readability */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 30px;
+}
+
+.DetailedResultcard h2 { /* Class name updated */
+    text-align: center;
+    color: #007bff; /* Primary blue color */
+    margin-bottom: 25px;
+    font-size: 1.7em;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 15px;
+}
+
+/* --- Summary Rows Styling --- */
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #ced4da; /* Dotted line for separation */
+    font-size: 1.05em;
+    color: #343a40;
+}
+
+.summary-row span:first-child {
+    font-weight: 500;
+}
+
+.summary-row.highlight {
+    border-bottom: 2px solid #000000;
+    font-weight: bold;
+    color: #1f2937;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+}
+
+.summary-row.total-tax {
+    margin-top: 20px;
+    padding: 15px 0;
+    background-color: #d4edda; /* Light green background for final result */
+    border-radius: 8px;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #0b5a31; /* Darker green text */
+    border: 2px solid #c3e6cb;
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* --- Tax Table Styling --- */
+.tax-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    font-size: 1em;
+}
+
+.tax-table thead tr {
+    background-color: #007bff;
+    color: white;
+}
+
+.tax-table th, .tax-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #dee2e6;
+}
+
+.tax-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.tax-table tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+.tax-table tbody td:last-child,
+.tax-table tbody td:nth-child(2) {
+    text-align: right; /* Align rates and amounts to the right */
+}
+
+/* Specific rows styling */
+.tax-table .divider td {
+    background-color: #e9ecef;
+    font-weight: bold;
+    border-top: 2px solid #343a40;
+}
+
+.tax-table .rebate-row td, 
+.tax-table .mr-row td {
+    color: #dc3545; /* Red color for deductions/relief */
+    font-style: italic;
+}
+
+.tax-table .surcharge-row td {
+    color: #ffc107; /* Orange/Yellow for addition */
+    font-weight: 600;
+}
+
+.tax-table .cess-row td {
+    color: #17a2b8; /* Cyan color for cess */
+    font-weight: 600;
+    border-bottom: 2px solid #343a40;
+}
+
+/* Make sure the text is visible even if the color changes
+*/
+.tax-table .mr-row td:last-child {
+    color: inherit; /* Reset text color for the formatted Marginal Relief text */
+}
+
+/* Responsiveness (optional but good practice) */
+@media (max-width: 600px) {
+    .DetailedResultcard { /* Class name updated */
+        padding: 20px;
+    }
+
+    .DetailedResultcard h2 { /* Class name updated */
+        font-size: 1.5em;
+    }
+
+    .tax-table th, .tax-table td {
+        padding: 8px 10px;
+        font-size: 0.9em;
+    }
+
+    .summary-row.total-tax {
+        font-size: 1.2em;
+        /* Ensure it remains justified for the best display on mobile */
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+/*=================================================================*/
+/*=================================================================*/
+
+
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+/* --- Detailed.css (Enhanced for Mobile) --- */
+
+/* General Page Styling */
+.Detailed-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    /* Adjusted padding for smaller screens */
+    padding: 20px 10px; 
+    background-color: #f4f7f6;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Main Container for the Form */
+.Detailed-container {
+    background-color: #ffffff;
+    /* Use dynamic padding for better fit on small screens */
+    padding: 25px 20px; 
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); /* Lighter shadow for mobile */
+    max-width: 600px;
+    width: 100%;
+    margin-top: 10px; /* Less top margin on mobile */
+}
+
+/* Headings and Subtitles - Mobile Font Size Adjustment */
+.Detailed-container h1 {
+    font-size: 1.6em; /* Slightly smaller for mobile */
+    color: #004d40;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.Detailed-container h2 {
+    font-size: 1.3em;
+    color: #00796b;
+    margin-top: 20px; /* Reduced vertical space */
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e0f2f1;
+}
+
+.subtitle {
+    font-size: 0.95em;
+    color: #607d8b;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #9299b9;
+    font-size: 0.9em; /* Smaller label font */
+}
+
+/* Input Wrapper for Rupee Symbol */
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #cfd8dc;
+    border-radius: 6px;
+    transition: border-color 0.3s;
+}
+
+.input-wrapper:focus-within {
+    border-color: #009688;
+    box-shadow: 0 0 0 2px rgba(0, 150, 136, 0.2);
+}
+
+.input-wrapper span {
+    background-color: #e0f2f1;
+    color: #00796b;
+    padding: 10px 10px; /* Slightly smaller padding */
+    font-weight: bold;
+    font-size: 0.9em;
+    border-right: 1px solid #cfd8dc;
+}
+
+/* Input and Select Fields */
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    font-size: 1em;
+    color: #37474f;
+    /* ... (CSS for hiding number arrows remains the same) */
+}
+
+select {
+    display: block;
+    background-color: #ffffff;
+    border: 1px solid #cfd8dc;
+    border-radius: 6px;
+    margin-top: 5px;
+    /* Ensure the select styling looks good on mobile */
+    padding-right: 2.5em; /* Make space for the custom arrow */
+}
+
+
+/* Separator Line */
+.separator {
+    margin: 25px 0; /* Reduced vertical space */
+}
+
+/* Note Text */
+.note-text {
+    font-size: 0.85em; /* Smaller font for notes */
+    margin-top: -5px;
+    margin-bottom: 15px;
+}
+
+/* Calculate Button */
+.calc-btn {
+    width: 100%;
+    padding: 14px; /* Slightly less vertical padding */
+    margin-top: 25px;
+    font-size: 1.05em;
+    border-radius: 6px; /* Slightly smaller border radius */
+}
+
+/* Footer Text */
+.footer-text {
+    font-size: 0.75em;
+    margin-top: 20px;
+}
+
+/* --- Media Query for Larger Screens (Tablet/Desktop) --- */
+/* This ensures larger screens still get the original desktop spacing */
+@media (min-width: 601px) {
+    .Detailed-container {
+        padding: 30px 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+    .Detailed-page {
+        padding: 40px 20px;
+    }
+    .Detailed-container h1 {
+        font-size: 2em;
+    }
+}
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+/*======
+/* --- QuickResult Component Styling (Based on Quick.js dark theme) --- */
+
+/* Inherit Page Layout */
+.Quickresult-Page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #cccfec, #d0ecf2); /* Matches Quick.js background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%; /* Ensure it spans full width for centering */
+}
+
+/* Main Result Card */
+.Quickresultcard {
+    width: 420px;
+    background: linear-gradient(180deg, #374151, #1f2937); /* Matches Quick.js card background */
+    border-radius: 18px;
+    padding: 30px;
+    color: #ffffff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Heading */
+.Quickresultcard h2 {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 8px;
+    /* Use the button accent color for highlight */
+    color: #a855f7; 
+}
+
+.Quickresultcard .subtitle {
+    text-align: center;
+    font-size: 15px;
+    opacity: 0.85;
+    margin-bottom: 40px;
+}
+
+/* --- Simplified Summary Section Styles --- */
+
+.summary-section-simplified {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+.summary-row-large,
+.summary-row-small,
+.summary-row-final {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px; /* Increased padding for better spacing */
+    border-radius: 12px;
+    font-size: 15px;
+}
+
+/* Total Gross Income (Primary Highlight) */
+.summary-row-large {
+    background: rgba(255, 255, 255, 0.1); /* Subtle light background */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.summary-row-large .label {
+    font-weight: 500;
+    opacity: 0.8;
+}
+.summary-row-large .value {
+    font-size: 1em;
+    font-weight: 700;
+}
+
+/* Taxable Income (Secondary, lighter background) */
+.summary-row-small {
+    background: rgba(0, 0, 0, 0.15); 
+    font-size: 0.95em;
+    padding: 15px 20px; /* Slightly smaller padding */
+    border-radius: 12px;
+    opacity: 0.9;
+}
+
+/* Separator */
+.summary-section-simplified hr {
+    border: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 15px 0;
+}
+
+/* NET TAX PAYABLE (Final Action/Result) */
+.summary-row-final {
+    margin-top: 25px;
+    padding: 25px 20px;
+    /* Uses the button gradient for high impact */
+    background: linear-gradient(135deg, #a855f7, #ec4899); 
+    color: white;
+    box-shadow: 0 10px 20px rgba(168, 85, 247, 0.4);
+}
+.summary-row-final .label {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+.summary-row-final .value-final {
+    font-size: 2em;
+    font-weight: 900;
+}
+
+/* --- Mobile Optimizations for QuickResult --- */
+@media (max-width: 480px) {
+    .Quickresult-Page {
+        padding: 20px;
+    }
+
+    .Quickresultcard {
+        width: 100%;
+        max-width: 380px;
+        padding: 25px 20px;
+    }
+
+    .Quickresultcard h2 {
+        font-size: 26px;
+    }
+
+    .summary-row-large,
+    .summary-row-small,
+    .summary-row-final {
+        padding: 15px;
+        font-size: 15px;
+    }
+
+    .summary-row-final {
+        padding: 20px;
+    }
+
+    .summary-row-final .value-final {
+        font-size: 1.7em; /* Make the final tax amount slightly smaller on mobile */
+    }
+}
+
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+/*=================================================================*/
 /* Page Background */
 .Quick-page {
   min-height: 100vh;
@@ -14,7 +522,7 @@
   background: linear-gradient(180deg, #374151, #1f2937);
   border-radius: 18px;
   padding: 30px;
-  color: #ffffff;
+  color: #eaeaee;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
 }
 
@@ -25,7 +533,7 @@
   margin-bottom: 8px;
 }
 
-.subtitle {
+.subtitle1 {
   text-align: center;
   font-size: 14px;
   opacity: 0.85;
@@ -33,7 +541,7 @@
 }
 
 /* Labels */
-.Quick-container label {
+.Quick-container label1 {
   display: block;
   margin-bottom: 8px;
   font-size: 15px;
@@ -41,7 +549,7 @@
 }
 
 /* Input with Rupee Icon */
-.input-wrapper {
+.input-wrapper1 {
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.12);
@@ -50,13 +558,13 @@
   margin-bottom: 22px;
 }
 
-.input-wrapper span {
+.input-wrapper1 span {
   font-size: 18px;
   margin-right: 8px;
   opacity: 0.9;
 }
 
-.input-wrapper input {
+.input-wrapper1 input {
   flex: 1;
   background: transparent;
   border: none;
@@ -83,7 +591,7 @@ option{
   background-color: #3c3636;
 }
 /* Button */
-.calc-btn {
+.calc-btn1 {
   width: 100%;
   padding: 14px;
   border-radius: 14px;
@@ -96,13 +604,13 @@ option{
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.calc-btn:hover {
+.calc-btn1:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
 }
 
 /* Footer Text */
-.footer-text {
+.footer-text1 {
   text-align: center;
   font-size: 12px;
   margin-top: 20px;
@@ -130,18 +638,18 @@ option{
         font-size: 26px; /* Slightly smaller main heading */
     }
 
-    .subtitle {
+    .subtitle1 {
         font-size: 13px; /* Slightly smaller subtitle */
         margin-bottom: 25px; /* Reduce bottom margin */
     }
 
     /* Input/Select size adjustments for better touch targets */
-    .input-wrapper {
+    .input-wrapper1 {
         padding: 10px 12px; /* Slightly less padding */
         margin-bottom: 20px; /* Reduce bottom margin */
     }
 
-    .input-wrapper input {
+    .input-wrapper1 input {
         font-size: 15px; /* Slightly smaller input text */
     }
 
@@ -152,20 +660,20 @@ option{
     }
 
     /* Button adjustments for better touch target */
-    .calc-btn {
+    .calc-btn1{
         padding: 16px; /* Increase vertical padding for an easier touch target */
         font-size: 17px; /* Slightly larger button text for emphasis */
         border-radius: 12px; /* Slightly smaller border radius might feel better on mobile */
     }
 
     /* Remove hover effects on mobile to prevent unexpected behavior */
-    .calc-btn:hover {
+    .calc-btn1:hover {
         transform: none;
         box-shadow: none;
     }
 
     /* Footer adjustments */
-    .footer-text {
+    .footer-text1 {
         font-size: 11px; /* Smaller footer text */
         margin-top: 15px; /* Reduce top margin */
     }
@@ -464,7 +972,8 @@ option{
 
 /* LOGO */
 .navbar-logo img {
-  height: 55px;
+  height: 100px;
+  /* width: 100%; */
   width: auto;
   border-radius: 8px;
 }

@@ -1,34 +1,64 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { saveIncome } from '../redux/calculate';
+import { NavLink, useNavigate } from 'react-router-dom';
 // import './Quick.css'
 
 const Quick = () => {
-  return (
-    <div className="Quick-page">
-      <div className="Quick-container">
-        <h1>Quick Tax Calculator</h1>
-        <p className="subtitle">Calculate your tax in seconds</p>
+    const [eincome, setIncome] = useState('');
+    const dispatch = useDispatch();
+    const readincome = useSelector((state) => state.calculate.income);//to read from redux
+    const navigate = useNavigate();
+    useEffect(() => {
+        const savedIncome = localStorage.getItem('income');
 
-        <label>Total Annual Income</label>
-        <div className="input-wrapper">
-          <span>₹</span>
-          <input type="number" placeholder="Enter income" />
+        if (savedIncome !== null) {
+            dispatch(saveIncome(savedIncome));
+        }
+    }, [dispatch]);
+
+    const popincome = () => {
+        if (eincome === '') {
+            alert('Please enter income');
+            return;
+        }
+
+        const incomeNumber = Number(eincome);
+
+        dispatch(saveIncome(incomeNumber));
+        localStorage.setItem('income', incomeNumber);
+        navigate("/QuickResult");
+        // alert(`Income saved successfully: ₹${incomeNumber}`);
+        
+    };
+
+    return (
+        <div className="Quick-page">
+            <div className="Quick-container">
+                <h1 id='h1Qc'>Quick Tax Calculator</h1>
+                <p className="subtitle1">Calculate your tax in seconds</p>
+
+                <label className='label1'>Total Annual Income</label>
+                <div className="input-wrapper1">
+                    <span>₹</span>
+                    <input type="number" placeholder="Enter income" value={eincome} onChange={(e) => setIncome(e.target.value)} />
+                </div>
+
+                <label className='label1'>Age Group</label>
+                <select>
+                    <option value="">Select option</option>
+                    <option value="60">Below 60 Years</option>
+                    <option value="80">Between 60 - 80 Years</option>
+                </select>
+
+                <button className="calc-btn1" onClick={popincome}>Calculate Tax</button>
+                
+                <p className="footer-text1">
+                    Quick estimation based on Indian tax slabs
+                </p>
+            </div>
         </div>
-
-        <label>Age Group</label>
-        <select>
-          <option value="">Select option</option>
-          <option value="60">Below 60 Years</option>
-          <option value="80">Between 60 - 80 Years</option>
-        </select>
-
-        <button className="calc-btn">Calculate Tax</button>
-
-        <p className="footer-text">
-          Quick estimation based on Indian tax slabs
-        </p>
-      </div>
-    </div>
-  )
+    )
 }
 
 export default Quick
