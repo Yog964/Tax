@@ -42,7 +42,7 @@ const Navbar = () => {
   return (
     <div className='navbar-section'>
       <div className='navbar-logo'>
-        <img src="src/assets/logo.jpg" alt="Image Loading..." />
+        <img src="https://github.com/Yog964/Tax/blob/main/src/assets/logo.jpg?raw=true" alt="Image Loading..." />
       </div>
       <div className='navbar-btn'>
         <div><NavLink to="/">Home</NavLink></div>
