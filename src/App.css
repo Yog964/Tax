@@ -1,3 +1,192 @@
+/* Page Background */
+.Quick-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #cccfec, #d0ecf2);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Main Card */
+.Quick-container {
+  width: 420px;
+  background: linear-gradient(180deg, #374151, #1f2937);
+  border-radius: 18px;
+  padding: 30px;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Heading */
+.Quick-container h1 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.85;
+  margin-bottom: 30px;
+}
+
+/* Labels */
+.Quick-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* Input with Rupee Icon */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 22px;
+}
+
+.input-wrapper span {
+  font-size: 18px;
+  margin-right: 8px;
+  opacity: 0.9;
+}
+
+.input-wrapper input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 16px;
+}
+
+/* Select Dropdown */
+.Quick-container select {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  margin-bottom: 30px;
+  appearance: none;
+  cursor: pointer;
+}
+option{
+  background-color: #3c3636;
+}
+/* Button */
+.calc-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.calc-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Footer Text */
+.footer-text {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 20px;
+  opacity: 0.8;
+}
+/*
+ * MOBILE OPTIMIZATIONS
+ * Targets screens up to 480px wide (common phone width)
+ */
+@media (max-width: 480px) {
+    /* Adjust page padding for better spacing on small screens */
+    .Quick-page {
+        padding: 20px;
+    }
+
+    /* Main Card - Make it full width on smaller screens */
+    .Quick-container {
+        width: 100%; /* Take up the full width */
+        max-width: 380px; /* Optional: Set a max-width for very small screens if needed */
+        padding: 25px 20px; /* Reduce internal padding slightly */
+    }
+
+    /* Heading adjustments */
+    .Quick-container h1 {
+        font-size: 26px; /* Slightly smaller main heading */
+    }
+
+    .subtitle {
+        font-size: 13px; /* Slightly smaller subtitle */
+        margin-bottom: 25px; /* Reduce bottom margin */
+    }
+
+    /* Input/Select size adjustments for better touch targets */
+    .input-wrapper {
+        padding: 10px 12px; /* Slightly less padding */
+        margin-bottom: 20px; /* Reduce bottom margin */
+    }
+
+    .input-wrapper input {
+        font-size: 15px; /* Slightly smaller input text */
+    }
+
+    .Quick-container select {
+        padding: 12px; /* Slightly less padding for the select */
+        font-size: 14px; /* Slightly smaller select text */
+        margin-bottom: 25px; /* Reduce bottom margin */
+    }
+
+    /* Button adjustments for better touch target */
+    .calc-btn {
+        padding: 16px; /* Increase vertical padding for an easier touch target */
+        font-size: 17px; /* Slightly larger button text for emphasis */
+        border-radius: 12px; /* Slightly smaller border radius might feel better on mobile */
+    }
+
+    /* Remove hover effects on mobile to prevent unexpected behavior */
+    .calc-btn:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* Footer adjustments */
+    .footer-text {
+        font-size: 11px; /* Smaller footer text */
+        margin-top: 15px; /* Reduce top margin */
+    }
+}
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+/*=================================================================*/
+/*=================================================================*/
+
+
+
+/*=================================================================*/
 /*=================================================================*/
 /* Homepage Container */
 .Homepage {
@@ -164,6 +353,8 @@
   margin-top: 10px;
 }
 
+
+
 .btn-container button:hover {
   transform: scale(1.07) ;
   box-shadow: 0 10px 30px rgba(59, 130, 246, 0.35);
@@ -285,7 +476,7 @@
 }
 .navbar-btn a {
   text-decoration: none;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
   color: #4a4a4a;
   padding: 6px 10px;
