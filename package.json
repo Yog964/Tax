@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "deploy:all": "git add . && git commit -m 'Update' && git push origin main && npm run build && npm run deploy"
+    "deploy:all": "git add . && git commit -m 'Auto commit' || echo 'No changes to commit' && git pull origin main --rebase && git push origin main && npm run build && npm run deploy"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.1",
