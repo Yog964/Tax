@@ -63,8 +63,8 @@ const Home = () => {
         </div>
         <div className='btn-container'>
           <div><button ><NavLink to="/QuickCalculator">Quick Calcualtion</NavLink></button></div>
-          {/* <div><button ><NavLink to="/DetailedCalculator">Detailed Calculation</NavLink></button></div> */}
-          <div>
+          <div><button ><NavLink to="/DetailedCalculator">Detailed Calculation</NavLink></button></div>
+          {/* <div>
             <button><NavLink
               to="#"
               className={({ isActive }) =>
@@ -77,9 +77,22 @@ const Home = () => {
             >
               Detailed Calculation
             </NavLink></button>
-          </div>
+          </div> */}
         </div>
       </div>
+
+      <div class="upcoming-card">
+        <h3>Upcoming Features</h3>
+        <ul>
+          <li>Portfolio Tracking</li>
+          <li>Investment Tracker</li>
+          <li>EMI / Loan Calculator</li>
+          <li>SIP Investment Planner</li>
+          <li>Mutual Fund Comparison Tool</li>
+        </ul>
+        <p>These features are currently under development and will be available soon.</p>
+      </div>
+
     </div>
   )
 }

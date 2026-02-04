@@ -692,6 +692,112 @@ option{
 /*=================================================================*/
 /*=================================================================*/
 
+.upcoming-card {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 250px;
+  border: 1px solid #154583;
+  box-shadow: 0 10px 25px rgba(28, 249, 69, 0.451);
+  transition: all 0.3s ease;
+  cursor: default;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 30px;
+}
+
+/* subtle gradient accent bar */
+.upcoming-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #3b82f6, #10b981, #8b5cf6);
+}
+
+/* Card lift effect on hover */
+.upcoming-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 35px rgba(59, 130, 246, 0.15);
+  border-color: #3b82f6;
+}
+
+/* Title */
+.upcoming-card h3 {
+  color: #0f172a;
+  margin: 8px 0 16px 0;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* glowing status dot */
+.upcoming-card h3::after {
+  content: '';
+  width: 9px;
+  height: 9px;
+  background: radial-gradient(circle, #34d399, #10b981);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.9);
+}
+
+/* list */
+.upcoming-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+/* list items */
+.upcoming-card li {
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #f8fafc, #eef2ff);
+  border-radius: 10px;
+  color: #334155;
+  transition: all 0.25s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 4px solid transparent;
+}
+
+/* Interactive list items */
+.upcoming-card li:hover {
+  background: linear-gradient(135deg, #eff6ff, #ecfeff);
+  color: #1d4ed8;
+  transform: translateX(6px) scale(1.02);
+  border-left-color: #3b82f6;
+}
+
+/* "Coming Soon" badge */
+.upcoming-card li::after {
+  content: 'Soon';
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: #ffffff;
+  padding: 3px 8px;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: scale(0.9);
+}
+
+.upcoming-card li:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* footer text */
+.upcoming-card p {
+  font-size: 0.9rem;
+  color: #ff2929;
+  margin: 0;
+  text-align: center;
+}
 
 
 /*=================================================================*/
@@ -700,6 +806,7 @@ option{
 .Homepage {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: #f0f4f8;

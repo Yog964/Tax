@@ -1,155 +1,103 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// --- Tax Logic Constants (New Regime FY 2025-26) ---
+// --- Constants ---
 const STANDARD_DEDUCTION = 75000;
-const REBATE_LIMIT_INCOME = 1200000; // TTI limit for Rebate u/s 87A
-const MAX_REBATE_AMOUNT = 60000; // Max Rebate u/s 87A
+const REBATE_LIMIT_NEW = 1200000; 
+const MAX_REBATE_NEW = 60000;
+const REBATE_LIMIT_OLD = 500000; // Old regime rebate limit
+const MAX_REBATE_OLD = 12500;   // Old regime max rebate
 const CESS_RATE = 0.04;
 
-// Surcharge Thresholds and Rates for New Regime
-const SURCHARGE_THRESHOLD_1 = 5000000;
-const SURCHARGE_RATE_1 = 0.1;
-const TAX_ON_50L_TTI = 1185000; // Tax on TTI of 50 Lakh (New Regime: 1,080,000 + 4% cess is 1,123,200)
-
 const initialState = {
-  income: 10, // Gross Total Income (before deductions)
-  NetTax: 0, // Final Tax Payable (with Cess)
-  ActiveIncome: 10, // Total Taxable Income (TTI)
-  SlabTax: 0, // Tax before Rebate & Surcharge
-  Rebate: 0, // Rebate u/s 87A applied
-  Surcharge: 0, // Surcharge applied
-  MarginalRelief: 0, // Marginal Relief applied (Rebate MR or Surcharge MR)
+  income: 0,
+  ActiveIncome: 0, // This is TTI (Total Taxable Income)
+  NetTax: 0,
+  SlabTax: 0,
+  Rebate: 0,
+  Surcharge: 0,
+  MarginalRelief: 0,
+  regime: 'new', // Track which regime is being used
 };
 
 export const calculateSlice = createSlice({
   name: "compute",
   initialState,
   reducers: {
+    // Standard Quick Calculation (New Regime only)
     saveIncome: (state, action) => {
-      const grossIncome = Number(action.payload) || 0;
-      state.income = grossIncome;
-      localStorage.setItem("income", grossIncome);
-
-      // Trigger the calculation immediately after saving income
-      calculateSlice.caseReducers.calculateNetTax(state);
+      state.income = Number(action.payload) || 0;
+      state.regime = 'new';
+      // Standard quick calc ignores specific deductions except SD
+      calculateSlice.caseReducers.performCalculation(state, { payload: { type: 'new' } });
     },
 
-    calculateNetTax: (state) => {
-      // 1. Calculate Taxable Income (TTI)
-      // Note: Only SD is considered here for simplicity; other deductions (like 80CCD(2)) should be added before this line.
-      const taxableIncome = Math.max(0, state.income - STANDARD_DEDUCTION); // Applies SD of 75k
-      state.ActiveIncome = taxableIncome;
+    // Detailed Calculation (Handles Old and New)
+    saveDetailedData: (state, action) => {
+  const { annualIncome, taxRegime, section80C, section80D, hraExemption, homeLoanInterest } = action.payload;
+  
+  // Use Math.round to prevent 1349999.999... issues
+  const grossIncome = Math.round(Number(annualIncome));
+  state.income = grossIncome;
+  state.regime = taxRegime;
 
-      // 2. Calculate Tax based on Slabs (Backward calculation for efficiency)
-      let taxBeforeRebate = 0;
-      let balance = taxableIncome;
+  // Apply Standard Deduction
+  let tti = grossIncome - STANDARD_DEDUCTION;
 
-      // Slabs and Cumulative Tax (Backward)
-      if (balance > 2400000) {
-        taxBeforeRebate += (balance - 2400000) * 0.3;
-        balance = 2400000;
-      }
-      if (balance > 2000000) {
-        taxBeforeRebate += (balance - 2000000) * 0.25;
-        balance = 2000000;
-      }
-      if (balance > 1600000) {
-        taxBeforeRebate += (balance - 1600000) * 0.2;
-        balance = 1600000;
-      }
-      if (balance > 1200000) {
-        taxBeforeRebate += (balance - 1200000) * 0.15;
-        balance = 1200000;
-      }
-      if (balance > 800000) {
-        taxBeforeRebate += (balance - 800000) * 0.1;
-        balance = 800000;
-      }
-      if (balance > 400000) {
-        taxBeforeRebate += (balance - 400000) * 0.05; /* 0-4L is 0% */
-      }
+  if (taxRegime === 'old') {
+    const totalDeductions = 
+      Math.min(Number(section80C || 0), 150000) + 
+      Number(section80D || 0) + 
+      Number(hraExemption || 0) + 
+      Math.min(Number(homeLoanInterest || 0), 200000);
+    
+    tti -= totalDeductions;
+  }
 
-      state.SlabTax = Math.round(taxBeforeRebate);
+  // Final rounding for TTI
+  state.ActiveIncome = Math.max(0, Math.round(tti));
+  
+  calculateSlice.caseReducers.performCalculation(state, { payload: { type: taxRegime } });
+},
 
-      // 3. Apply Rebate U/S 87A and Marginal Relief (MR) on Rebate
-      let taxAfterRelief = taxBeforeRebate;
-      let marginalRelief = 0;
-      let rebateApplied = 0;
+    performCalculation: (state, action) => {
+      const type = action.payload.type;
+      const tti = state.ActiveIncome;
+      let tax = 0;
 
-      if (taxableIncome <= REBATE_LIMIT_INCOME) {
-        // TTI <= 12L
-        rebateApplied = Math.min(taxBeforeRebate, MAX_REBATE_AMOUNT); // Max 60k rebate
-        taxAfterRelief = taxBeforeRebate - rebateApplied;
+      if (type === 'new') {
+        // --- NEW REGIME SLABS (FY 2025-26) ---
+        let balance = tti;
+        if (balance > 2400000) { tax += (balance - 2400000) * 0.3; balance = 2400000; }
+        if (balance > 2000000) { tax += (balance - 2000000) * 0.25; balance = 2000000; }
+        if (balance > 1600000) { tax += (balance - 1600000) * 0.2; balance = 1600000; }
+        if (balance > 1200000) { tax += (balance - 1200000) * 0.15; balance = 1200000; }
+        if (balance > 800000) { tax += (balance - 800000) * 0.1; balance = 800000; }
+        if (balance > 400000) { tax += (balance - 400000) * 0.05; }
       } else {
-        // TTI > 12L: Check for Marginal Relief (MR) on Rebate
-        // Tax on TTI of 12L is 60k, which is nullified by rebate.
-        const taxIf12L = 60000;
-        const excessIncome = taxableIncome - REBATE_LIMIT_INCOME; // Income above 12L
-
-        // MR Rule: Tax Payable must not exceed (Tax on 12L) + (Income above 12L)
-        const maxTaxWithoutMR = taxIf12L + excessIncome;
-
-        if (taxBeforeRebate > maxTaxWithoutMR) {
-          marginalRelief = taxBeforeRebate - maxTaxWithoutMR;
-          taxAfterRelief = maxTaxWithoutMR; // Tax is capped at the MR level
-        } else {
-          taxAfterRelief = taxBeforeRebate;
-        }
+        // --- OLD REGIME SLABS (FY 2025-26) ---
+        let balance = tti;
+        if (balance > 1000000) { tax += (balance - 1000000) * 0.3; balance = 1000000; }
+        if (balance > 500000) { tax += (balance - 500000) * 0.2; balance = 500000; }
+        if (balance > 250000) { tax += (balance - 250000) * 0.05; }
       }
 
-      // 4. Apply Surcharge and Marginal Relief on Surcharge (For incomes > 50L)
-      let surcharge = 0;
+      state.SlabTax = Math.round(tax);
 
-      if (taxableIncome > SURCHARGE_THRESHOLD_1) {
-        // TTI > 50L
-        let surchargeRate = 0;
-        if (taxableIncome > 5000000 && taxableIncome <= 10000000) {
-          surchargeRate = SURCHARGE_RATE_1;
-        } // 10%
-
-        surcharge = Math.round(taxAfterRelief * surchargeRate);
-        let taxWithSurcharge = taxAfterRelief + surcharge;
-
-        // --- Marginal Relief on Surcharge (Simplifed Logic) ---
-        const taxOn50L = 1185000; // Tax on 50L TTI (after rebate, before surcharge/cess)
-        const incrementalIncome = taxableIncome - SURCHARGE_THRESHOLD_1;
-
-        // Max Surcharge Tax Cap = (Tax on 50L) + (Income above 50L)
-        const maxTaxCap = taxOn50L + incrementalIncome;
-
-        if (taxWithSurcharge > maxTaxCap) {
-          const mrForSurcharge = taxWithSurcharge - maxTaxCap;
-          taxWithSurcharge = maxTaxCap;
-          marginalRelief += mrForSurcharge;
-          surcharge = taxWithSurcharge - taxAfterRelief; // Recalculate Surcharge after MR
-        }
-        taxAfterRelief = taxWithSurcharge; // Update the final pre-cess tax
+      // 3. Rebate u/s 87A
+      let rebate = 0;
+      if (type === 'new' && tti <= REBATE_LIMIT_NEW) {
+        rebate = Math.min(tax, MAX_REBATE_NEW);
+      } else if (type === 'old' && tti <= REBATE_LIMIT_OLD) {
+        rebate = Math.min(tax, MAX_REBATE_OLD);
       }
+      state.Rebate = rebate;
 
-      state.Rebate = rebateApplied;
-      state.Surcharge = Math.round(surcharge);
-      state.MarginalRelief = Math.round(marginalRelief); // Total MR is cumulative
-
-      // 5. Add Health & Education Cess (4%)
-      const finalTax = Math.round(taxAfterRelief * (1 + CESS_RATE));
-
-      state.NetTax = finalTax;
-      localStorage.setItem("NetTax", finalTax);
-    },
-
-    // Other reducers (incrementTax, updateIncome) remain unchanged
-    incrementTax: (state, action) => {
-      state.NetTax = action.payload;
-      localStorage.setItem("NetTax", action.payload);
-    },
-    updateIncome: (state, action) => {
-      state.ActiveIncome = action.payload;
-      localStorage.setItem("ActiveIncome", action.payload);
-    },
+      // 4. Final Totals (Simplifying MR for this example)
+      const taxAfterRebate = Math.max(0, tax - rebate);
+      state.NetTax = Math.round(taxAfterRebate * (1 + CESS_RATE));
+    }
   },
 });
 
-export const { saveIncome, incrementTax, updateIncome } =
-  calculateSlice.actions;
-
+export const { saveIncome, saveDetailedData } = calculateSlice.actions;
 export default calculateSlice.reducer;
